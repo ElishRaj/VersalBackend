@@ -42,11 +42,12 @@ app.use(express.urlencoded({ extended: true }));
 
 // CORS configuration
 const corsOptions = {
-  origin: process.env.ALLOWED_ORIGINS,
+  origin: "https://graphx-frontend-dsscuce57-elisharajs-projects.vercel.app",
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
+
 app.use(cors(corsOptions));
 
 // Initialize Razorpay
