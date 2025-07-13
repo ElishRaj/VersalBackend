@@ -73,7 +73,7 @@ const sendLoginNotificationEmail = async (user) => {
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #4a6baf;">Hello ${
-          user.displayName || user.email.split("@")[0]
+          user.displayName || (user.email?.split("@")[0]) || "User"
         }!</h2>
         <p>You have successfully logged in to your Graph-X account.</p>
         <p>Thank you for using our service. If this wasn't you, please secure your account immediately.</p>
@@ -126,7 +126,7 @@ const sendPaymentConfirmationEmail = async (user, paymentDetails) => {
         </div>
         
         <div style="padding: 20px;">
-          <p>Hello ${user.displayName || user.email.split("@")[0]},</p>
+          <p>Hello <p>Hello ${user.displayName || (user.email?.split("@")[0]) || "User"},</p>
           
           <p>Thank you for subscribing to the Graph-X <strong>${planName}</strong> plan. 
           Your payment of <strong>₹${amount}</strong> has been successfully processed.</p>
@@ -197,7 +197,7 @@ const sendPlanSwitchEmail = async (user, switchDetails) => {
         </div>
         
         <div style="padding: 20px;">
-          <p>Hello ${user.displayName || user.email.split("@")[0]},</p>
+          <p>Hello <p>Hello ${user.displayName || (user.email?.split("@")[0]) || "User"},</p>
           
           <p>Your Graph-X subscription has been changed from 
           <strong>${
@@ -464,7 +464,7 @@ app.get("/auth/status", (req, res) => {
       user: {
         id: req.user._id,
         email: req.user.email,
-        name: req.user.displayName || req.user.email.split("@")[0],
+        name: req.user.displayName || (req.user.email?.split("@")[0]) || "User",
         isVerified: req.user.isVerified,
       },
     });
@@ -575,7 +575,7 @@ app.post("/api/payment/create-order", async (req, res) => {
         plan.charAt(0).toUpperCase() + plan.slice(1)
       } Plan`,
       prefill: {
-        name: req.user.displayName || req.user.email.split("@")[0],
+        name: req.user.displayName || (req.user.email?.split("@")[0]) || "User",
         email: req.user.email,
       },
     });
@@ -993,7 +993,7 @@ app.post("/login", passport.authenticate("local"), async (req, res) => {
       user: {
         id: req.user._id,
         email: req.user.email,
-        name: req.user.displayName || req.user.email.split("@")[0],
+        name: req.user.displayName || (req.user.email?.split("@")[0]) || "User",
         isVerified: req.user.isVerified,
       },
     });
